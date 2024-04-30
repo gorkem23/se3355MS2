@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oyuncak Mağazası</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: space-between; 
+        }
+
+        .product-card {
+            flex: 0 0 calc(33.33% - 20px); 
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-sizing: border-box;
+            cursor: pointer; 
+            margin-bottom: 20px; 
+        }
+        .product-card:last-child {
+            margin-right: 0; 
+        }
+        .product-card:hover {
+            background-color: #f0f0f0; 
+        }
+        .product-card .product-image {
+            padding: 10px;
+        }
+        .product-card .product-image img {
+            max-width: 100%;
+            height: auto;
+        }
+        .product-card .product-details {
+            padding: 10px;
+        }
+        .product-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 16px;
+            color: #e74c3c;
+        }
+        .product-status {
+            font-size: 14px;
+            color: #27ae60;
+        }
+
+        .product-button {
+            width: 100%; 
+            padding: 8px; 
+            font-size: 14px; 
+            border: none;
+            background: none;
+        }
+
+        #colorFilter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #ed3925;
+        }
+        #searchInput {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px; 
+            padding: 10px;
+            font-size: 16px;
+        }
+        #cartContainer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none; 
+        }
+        #cartContainer ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #cartContainer ul li {
+            margin-bottom: 10px;
+        }
+        #clearCartButton {
+            margin-top: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        #clearCartButton:hover {
+            background-color: #c0392b;
+        }
+
+
+        #cartToggleButton {
+            position: fixed;
+            top: 50px;
+            right: 95%;
+            transform: translateX(50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+        #sortFilter {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            background-color: #e74c3c;
+        }
+
+    </style>
+</head>
+<body>
+    <!--<div class="container">
+        {% for product in products %}
+        <div class="product-card" data-color="{{ product.color }}" onclick="redirectToProduct('{{ product.title }}', '{{ product.price }}', '{{ product.status }}', '{{ product.image }}')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="{{ product.image }}" alt="{{ product.title }}">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">{{ product.title }}</div>
+                    <div class="product-price">{{ product.price }}</div>
+                    <div class="product-status">{{ product.status }}</div>
+                </div>
+            </button>
+        </div>
+        {% endfor %}
+    </div> for DB-->
+
+    <div class="container">
+        <div class="product-card" data-color="red" onclick="redirectToProduct('King Toys 3 Katlı Şutlu Park ve 5 Araba', '348.90', 'Yeni', 'https://productimages.hepsiburada.net/s/153/550/110000109559199.jpg/format:webp')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="https://productimages.hepsiburada.net/s/153/550/110000109559199.jpg/format:webp" alt="Kırmızı İtfaiye Kamyonu">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">King Toys 3 Katlı Şutlu Park ve 5 Araba</div>
+                    <div class="product-price">348 TL</div>
+                    <div class="product-status">Yeni</div>
+                </div>
+            </button>
+        </div>
+        <div class="product-card" data-color="yellow" onclick="redirectToProduct('Bruder JCB 5CX Eco Kepçeli Ekskavatör', '1951.10', '-', 'https://productimages.hepsiburada.net/s/399/550/110000424695358.jpg/format:webp')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="https://productimages.hepsiburada.net/s/399/550/110000424695358.jpg/format:webp" alt="Sarı İnşaat Aracı">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Bruder JCB 5CX Eco Kepçeli Ekskavatör</div>
+                    <div class="product-price">1951 TL</div>
+                    <div class="product-status">-</div>
+                </div>
+            </button>
+        </div>
+        <div class="product-card" data-color="blue" onclick="redirectToProduct('Çılgın Toys Sürtmeli Sesli Işıklı Polis ve Ambulans Arabası', '400.00', 'Yeni', 'https://productimages.hepsiburada.net/s/136/550/110000088841818.jpg/format:webp')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="https://productimages.hepsiburada.net/s/136/550/110000088841818.jpg/format:webp" alt="Sürtmeli Sesli Işıklı Polis ve Ambulans Arabası">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Toys Sürtmeli Sesli Işıklı Polis ve Ambulans Arabası</div>
+                    <div class="product-price">400 TL</div>
+                    <div class="product-status">Yeni</div>
+                </div>
+            </button>
+        </div>
+        <div class="product-card" data-color="blue" onclick="redirectToProduct('Nerf İnfinus', '361', 'Yeni', 'https://productimages.hepsiburada.net/s/21/550/9934961606706.jpg/format:webp')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="https://productimages.hepsiburada.net/s/21/550/9934961606706.jpg/format:webp" alt="Nerf İnfinus">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Nerf İnfinus</div>
+                    <div class="product-price">361 TL</div>
+                    <div class="product-status">Yeni</div>
+                </div>
+            </button>
+        </div>
+        <div class="product-card" data-color="red" onclick="redirectToProduct('Fingerboard Tech Deck Baker', '550', 'Yeni', 'https://cdn1.sampleskate.com/29611-large_default/fingerboard-tech-deck-baker-brand-logo-4.jpg')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="https://cdn1.sampleskate.com/29611-large_default/fingerboard-tech-deck-baker-brand-logo-4.jpg" alt="Fingerboard Tech Deck Baker">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">Fingerboard Tech Deck Baker</div>
+                    <div class="product-price">550</div>
+                    <div class="product-status">Yeni</div>
+                </div>
+            </button>
+        </div>
+
+        <div class="product-card" data-color="red" onclick="redirectToProduct('RC arac', '750', 'Yeni', 'https://www.rccaraction.com/wp-content/uploads/2010/6-/Matrix5-SC-main.jpg')">
+            <button class="product-button">
+                <div class="product-image">
+                    <img src="https://www.rccaraction.com/wp-content/uploads/2010/6-/Matrix5-SC-main.jpg" alt="RC arac">
+                </div>
+                <div class="product-details">
+                    <div class="product-title">RC arac</div>
+                    <div class="product-price">750</div>
+                    <div class="product-status">Yeni</div>
+                </div>
+            </button>
+        </div>
+        
+    </div>
+
+    <!-- Renk filtreleme dropdown menüsü -->
+    <select id="colorFilter" onchange="handleColorFilterChange(this)">
+        <option value="all">Tümü</option>
+        <option value="red">Kırmızı</option>
+        <option value="yellow">Sarı</option>
+        <option value="blue">Mavi</option>
+        <option value="green">Yeşil</option>
+    </select>
+
+    <!-- Arama kutusu -->
+    <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Ürün ara...">
+
+    <!-- Sepet -->
+    <div id="cartContainer">
+        <ul id="cartList"></ul>
+        <button id="clearCartButton" onclick="clearCart()">Sepeti Temizle</button>
+    </div>
+
+    <!-- Sepet açma/kapatma butonu -->
+    <button id="cartToggleButton" onclick="toggleCart()">Sepeti Aç/Kapat</button>
+
+    <!-- Sıralama özelliği eklenmiş dropdown menüsü -->
+    <select id="sortFilter" onchange="handleSortFilterChange(this)">
+        <option value="default">Varsayılan Sıralama</option>
+        <option value="price-low-to-high">Fiyata Göre Artan</option>
+        <option value="price-high-to-low">Fiyata Göre Azalan</option>
+        <option value="alphabetical">Alfabetik Sıralama</option>
+    </select>
+
+
+    <script>
+        function redirectToProduct(title, price, status, imageUrl) {
+            var product = {
+                title: title,
+                price: price,
+                status: status,
+                imageUrl: imageUrl
+            };
+
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push(product);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            redirectToProductPage(product);
+        }
+
+        function redirectToProductPage(product) {
+            window.location.href = "prodDetail.html?title=" + encodeURIComponent(product.title) + "&price=" + encodeURIComponent(product.price) + "&status=" + encodeURIComponent(product.status) + "&imageUrl=" + encodeURIComponent(product.imageUrl);
+        }
+
+        function filterProductsByColor(color) {
+            var productCards = document.querySelectorAll('.product-card');
+            productCards.forEach(function(card) {
+                var dataColor = card.getAttribute('data-color');
+                if (color === 'all' || color === dataColor) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function handleColorFilterChange(select) {
+            var selectedColor = select.value;
+            filterProductsByColor(selectedColor);
+        }
+
+        function searchProducts() {
+            var input, filter, cards, title, i;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(function(card) {
+                title = card.querySelector('.product-title');
+                if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            renderCart();
+        }
+
+        function renderCart() {
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+            var cartList = document.getElementById('cartList');
+            cartList.innerHTML = '';
+            cart.forEach(function(item) {
+                var li = document.createElement('li');
+                li.textContent = item.title + ' - ' + item.price + ' - ' + item.status;
+                cartList.appendChild(li);
+            });
+        }
+
+        function toggleCart() {
+            var cartContainer = document.getElementById('cartContainer');
+            if (!cartContainer.style.display || cartContainer.style.display === 'none') {
+                cartContainer.style.display = 'block';
+                renderCart();
+            } else {
+                cartContainer.style.display = 'none';
+            }
+        }
+
+        renderCart(); // Sayfa ilk yüklendiğinde sepeti göster
+
+        function sortProducts(option) {
+        var productCards = document.querySelectorAll('.product-card');
+        var sortedCards = Array.from(productCards);
+
+        switch (option) {
+            case 'price-low-to-high':
+                sortedCards.sort(function(a, b) {
+                    var priceA = parseFloat(a.querySelector('.product-price').textContent.replace('TL', '').replace(',', '.'));
+                    var priceB = parseFloat(b.querySelector('.product-price').textContent.replace('TL', '').replace(',', '.'));
+                    return priceA - priceB;
+                });
+                break;
+            case 'price-high-to-low':
+                sortedCards.sort(function(a, b) {
+                    var priceA = parseFloat(a.querySelector('.product-price').textContent.replace('TL', '').replace(',', '.'));
+                    var priceB = parseFloat(b.querySelector('.product-price').textContent.replace('TL', '').replace(',', '.'));
+                    return priceB - priceA;
+                });
+                break;
+            case 'alphabetical':
+                sortedCards.sort(function(a, b) {
+                    var titleA = a.querySelector('.product-title').textContent.toUpperCase();
+                    var titleB = b.querySelector('.product-title').textContent.toUpperCase();
+                    if (titleA < titleB) return -1;
+                    if (titleA > titleB) return 1;
+                    return 0;
+                });
+                break;
+            default:
+                // Default sorting by product order in HTML
+                break;
+        }
+
+        var container = document.querySelector('.container');
+        container.innerHTML = '';
+        sortedCards.forEach(function(card) {
+            container.appendChild(card);
+        });
+    }
+
+    function handleSortFilterChange(select) {
+        var selectedOption = select.value;
+        sortProducts(selectedOption);
+    }
+
+    </script>
+</body>
+</html>

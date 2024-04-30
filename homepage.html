@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Div Örneği</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: rgb(255, 255, 255);
+            height: 1.5cm;
+            padding: 20px 0;
+            border: #000000;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header img {
+            width: 5cm;
+            height: 2.6cm;
+            object-fit: cover;
+        }
+
+        .search-form, .city-select {
+            margin: 0 2cm;
+
+        }
+
+        .search-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 5px;
+            width: 15cm;
+        }
+
+        .city-select {
+            margin-left: 0cm;
+            padding: 8px;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .submit-button {
+            padding: 8px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .divider {
+            height: 0.2cm;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .colo1{
+            width: 40%;
+            background-color: coral;
+        }
+        .colo2{
+            width: 15%;
+            background-color:cadetblue;
+        }
+        .colo3{
+            width: 15%;
+            background-color: purple;   
+        }
+        .colo4{
+            width: 15%;
+            background-color: forestgreen;
+        }
+        .colo5{
+            width: 15%;
+            background-color: rgb(68, 2, 68);
+        }
+
+        .full-width-divider {
+            height: 2cm;
+            background-color: lightgrey;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1cm;
+        }
+
+        .category-button {
+            padding: 10px 20px;
+            background-color: lightgrey;
+            color:gray;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+
+        .category-button:hover {
+            background-color:white;
+            height: 2cm;
+            width: 4cm;
+        }
+
+        .vertical-line {
+            width: 0.05cm; /* Yarı kalınlık */
+            height: 50%;
+            background-color:gainsboro;
+        }
+
+        .backgroundphoto {
+            margin-top: 0cm;
+            height: 13cm;
+            background-image: url("https://images.hepsiburada.net/banners/s/0/1920-540/backgroundImage2082_20230508160746.png/format:webp");
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .centered-div {
+            width: 70%; 
+            height: 46%; 
+            background-color: white;
+            position: absolute;
+            top: 54%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            border-radius: 15px;
+        }
+
+        .start-shopping-button {
+            background-color: orange;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 4cm;
+            margin-left: 3cm;
+        }
+
+        .start-shopping-button:hover {
+            background-color:rgb(195, 128, 4);
+        }
+
+        .backgroundphoto2 {
+            margin-bottom: 30cm;
+            margin-left: 10cm;
+            height: 9cm;
+            background-image: url("https://images.hepsiburada.net/banners/s/1/672-378/bannerImage2121_20240417104750.jpeg/format:webp");
+            background-size: cover;
+            z-index: -1;
+            margin-top: -5cm;
+            border-radius: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSimVPx65bWffRRclZ-4d2bXOo_bNOUjerfApKhrDPcPw&s" alt="Header Image">
+    <form class="search-form">
+        <input type="text" class="search-input" placeholder="Ara...">
+        <button type="submit" class="submit-button">Ara</button>
+    </form>
+    <select class="city-select">
+        <option value="">Şehir Seç</option>
+        <option value="istanbul">İstanbul</option>
+        <option value="ankara">Ankara</option>
+        <option value="izmir">İzmir</option>
+        <option value="bursa">Bursa</option>
+    </select>
+</div>
+<div class="divider">
+    <div class="colo1"></div>
+    <div class="vertical-line"></div>
+    <div class="colo2"></div>
+    <div class="vertical-line"></div>
+    <div class="colo3"></div>
+    <div class="vertical-line"></div>
+    <div class="colo4"></div>
+    <div class="vertical-line"></div>
+    <div class="colo5"></div>
+</div>
+
+<div class="full-width-divider">
+    <button class="category-button">Elektronik</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Moda</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Ev</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Yapı-Market</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Anne-Bebek</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Spor</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Kozmetik</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Süpermarket</button>
+    <div class="vertical-line"></div>
+    <button class="category-button">Hobi</button>
+</div>
+
+<div  class="backgroundphoto">
+    <div class="centered-div">
+        <button class="start-shopping-button" id="startshoppingbutton">Alışverişe Başla</button>
+        <div style="margin-left: 2.8cm;">Ürünler sayfası için tıklayın</div>
+        <div class="backgroundphoto2"></div>
+    </div>
+
+</div>
+
+<script>
+    startshoppingbutton.addEventListener("click", function() {
+      window.open("http://127.0.0.1:5500/midtermspe/prodPage.html", "_self");
+    });
+</script>
+
+
+</body>
+</html>

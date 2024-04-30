@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .product-detail {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+        .product-detail img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .product-title {
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            font-size: 20px;
+            color: #e74c3c;
+        }
+        .product-status {
+            font-size: 18px;
+            color: #27ae60;
+            margin-bottom: 20px;
+        }
+        .add-to-cart-button {
+            background-color: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .add-to-cart-button:hover {
+            background-color: #ff8c00; 
+        }
+    </style>
+</head>
+<body>
+    <div class="product-detail">
+        <img id="productImage" src="" alt="Ürün Resmi">
+        <div class="product-title" id="productTitle"></div>
+        <div class="product-price" id="productPrice"></div>
+        <div class="product-status" id="productStatus"></div>
+        <button id="addToCartButton" class="add-to-cart-button">Sepete Ekle</button>
+        <button onclick="goBack()" class="add-to-cart-button">Geri Dön</button>
+    </div>
+
+    <script>
+        var urlParams = new URLSearchParams(window.location.search);
+        var title = urlParams.get('title');
+        var price = urlParams.get('price');
+        var status = urlParams.get('status');
+        var imageUrl = urlParams.get('imageUrl');
+        if (imageUrl) {
+            document.getElementById('productImage').src = imageUrl;
+        }
+        document.getElementById('productTitle').innerText = title;
+        document.getElementById('productPrice').innerText = price + ' TL';
+        document.getElementById('productStatus').innerText = status;
+        document.getElementById('addToCartButton').addEventListener('click', function() {
+
+            var cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            var product = {
+                title: title,
+                price: price,
+                status: status,
+                imageUrl: imageUrl
+            };
+
+            cart.push(product);
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+        });
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
